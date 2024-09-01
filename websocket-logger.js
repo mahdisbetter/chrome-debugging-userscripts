@@ -18,6 +18,15 @@ function arrayBufferToHexString(buffer) {
     return hexString
 }
 
+function arrayBufferToB64String (buffer) {
+    const byteArray = new Uint8Array(buffer);
+    let binaryString = '';
+    for (let i = 0; i < byteArray.length; i++) {
+        binaryString += String.fromCharCode(byteArray[i]);
+    }
+    return btoa(binaryString);
+}
+
 function parseStackTrace(stackTrace) {
     return stackTrace
         .split('\n')
@@ -61,6 +70,7 @@ window.WebSocket = function(url, protocols) {
 
         if (loggedMessage.message instanceof ArrayBuffer) {
           loggedMessage.message.hexString = arrayBufferToHexString(loggedMessage.message)
+          loggedMessage.message.b64String = arrayBufferToB64String(loggedMessage.message)
         }
 
         loggedSocket.loggedMessages.push(loggedMessage);
