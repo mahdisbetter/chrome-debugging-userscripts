@@ -27,25 +27,10 @@ function arrayBufferToB64String (buffer) {
     return btoa(binaryString);
 }
 
-function parseStackTrace(stackTrace) {
-    return stackTrace
-        .split('\n')
-        .slice(2)
-        .map(line => {
-            const match = line.match(/at (\S+) \((https?:\/\/\S+)\)|at (\S+) (\S+)/);
-            if (match) {
-                return match[2] ? `${match[2]} at ${match[1]}` : `${match[4]} at ${match[3]}`;
-            }
-            return null;
-        })
-        .filter(Boolean)
-        .join('           ');
-}
-
 window.WebSocket = function(url, protocols) {
     const ws = new OriginalWebSocket(url, protocols);
 
-    const creationStackTrace = parseStackTrace((new Error()).stack);
+    const creationStackTrace = (new Error());
     const timestamp = new Date().toISOString();
 
     const loggedSocket = {
@@ -59,7 +44,7 @@ window.WebSocket = function(url, protocols) {
 
     const originalSend = ws.send;
     ws.send = function(data) {
-        const sendStackTrace = parseStackTrace((new Error()).stack);
+        const sendStackTrace = (new Error());
         const timestamp = new Date().toISOString();
 
         loggedMessage = {
