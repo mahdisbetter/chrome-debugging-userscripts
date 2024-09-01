@@ -18,7 +18,7 @@ function arrayBufferToHexString(buffer) {
     return hexString
 }
 
-function arrayBufferToB64String (buffer) {
+function arrayBufferToB64String(buffer) {
     const byteArray = new Uint8Array(buffer);
     let binaryString = '';
     for (let i = 0; i < byteArray.length; i++) {
