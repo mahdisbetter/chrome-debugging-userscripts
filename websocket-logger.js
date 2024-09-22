@@ -42,9 +42,9 @@ window.WebSocket = function (url, protocols) {
 
     const loggedSocket = {
         socket: ws,
-        stack: creationStackTrace,
         timestamp: timestamp,
         loggedMessages: [],
+        stack: creationStackTrace,
     };
 
     window.loggedWebSockets.push(loggedSocket);
@@ -61,8 +61,8 @@ window.WebSocket = function (url, protocols) {
 
         let loggedMessage = {
             message: data,
-            stack: sendStackTrace,
             timestamp: timestamp,
+            stack: sendStackTrace,
             socket: loggedSocket,
         };
 
